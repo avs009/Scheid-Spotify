@@ -1,0 +1,15 @@
+#ifndef DEFINITIONS_H_IN
+#define DEFINITIONS_H_IN
+
+// Static definitions
+
+#define SPOTIFY_URL_AUTHORIZE "https://accounts.spotify.com/authorize"
+#define SPOTIFY_URL_API_TOKEN "https://accounts.spotify.com/api/token"
+
+#define SPOTIFY_CLIENT_SCOPES "user-read-private"
+
+// Definitions from CMAKE
+#define SPOTIFY_CLIENT_KEY "@SPOTIFY_CLIENT_KEY@"
+#define SPOTIFY_CLIENT_SECRET "@SPOTIFY_CLIENT_SECRET@"
+
+#endif // DEFINITIONS_H_IN
