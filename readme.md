@@ -2,10 +2,10 @@
     <img src=".github/img/logo.svg"/>
 </p>
 
-![scheid-spotify](.github/img/spotify-qt.png)
+![scheid-spotify](.github/img/scheid-spotify.png)
 
-[![Linux Build](https://github.com/avs009/scheid-spotify/actions/workflows/linux.yml/badge.svg)](
-https://github.com/avs009/scheid-spotify/actions/workflows/linux.yml)
+[![Ubuntu Build](https://github.com/avs009/scheid-spotify/actions/workflows/ubuntu.yml/badge.svg)](
+https://github.com/avs009/scheid-spotify/actions/workflows/ubuntu.yml)
 [![Windows Build](https://github.com/avs009/scheid-spotify/actions/workflows/windows.yml/badge.svg)](
 https://github.com/avs009/scheid-spotify/actions/workflows/windows.yml)
 
