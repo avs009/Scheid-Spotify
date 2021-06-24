@@ -36,6 +36,8 @@ jobs:
         run: cmake --build . --config $BUILD_TYPE
 
       - name: Test
+        env:
+          SPOTIFY_CLIENT_REFRESHTOKEN: ${{ secrets.SPOTIFY_CLIENT_REFRESHTOKEN }}
         run: |
           curl https://raw.githubusercontent.com/mxe/mxe/master/tools/copydlldeps.sh -o copydlldeps.sh
           ./copydlldeps.sh --infile ./ScheidSpotifyTest.exe \
