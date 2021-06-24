@@ -5,6 +5,8 @@ on: [push, pull_request]
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
+  SPOTIFY_CLIENT_KEY: ${{ secrets.SPOTIFY_CLIENT_KEY }}
+  SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
 
 jobs:
   build:
@@ -25,7 +27,7 @@ jobs:
       run: cmake -E make_directory ${{runner.workspace}}/build
 
     - name: Install Dependencies
-      run: sudo apt update && sudo apt install build-essential qt5-default libqt5svg5-dev libqt5network5 libqt5networkauth5-dev -y
+      run: sudo apt update && sudo apt install build-essential qt5-default libqt5svg5-dev libqt5network5 libqt5networkauth5-dev qtbase5-dev -y
 
     - name: Configure CMake
       # Use a bash shell so we can use the same syntax for environment variable
