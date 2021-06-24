@@ -14,7 +14,8 @@ public:
     bool isGranted() const;
     bool isPermanent() const;
     void setPermanent(bool value);
-    bool loadTokenAndAuthenticate();
+    void loadTokenAndAuthenticate();
+    void loadTokenAndAuthenticate(QString refresh_token);
     void saveToken();
     void clearToken();
 

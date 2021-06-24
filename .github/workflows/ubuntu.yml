@@ -5,6 +5,8 @@ on: [push, pull_request]
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
+  SPOTIFY_CLIENT_KEY: ${{ secrets.SPOTIFY_CLIENT_KEY }}
+  SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
 
 jobs:
   build:
@@ -12,9 +14,9 @@ jobs:
     # well on Windows or Mac.  You can convert this to a matrix build if you need
     # cross-platform coverage.
     # See: https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#configuring-a-build-matrix
-    # Ubuntu 18.04 is supported until April 2023
+    # Ubuntu
     # See: https://wiki.ubuntu.com/Releases
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
@@ -25,7 +27,7 @@ jobs:
       run: cmake -E make_directory ${{runner.workspace}}/build
 
     - name: Install Dependencies
-      run: sudo apt update && sudo apt install build-essential qt5-default libqt5svg5-dev -y
+      run: sudo apt update && sudo apt install build-essential qt5-default libqt5svg5-dev libqt5network5 libqt5networkauth5-dev qtbase5-dev -y
 
     - name: Configure CMake
       # Use a bash shell so we can use the same syntax for environment variable
@@ -35,7 +37,7 @@ jobs:
       # Note the current convention is to use the -S and -B options here to specify source
       # and build directories, but this is only available with CMake 3.13 and higher.
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DUSE_TESTS=ON
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DUSE_TESTS=OFF
 
     - name: Build
       working-directory: ${{runner.workspace}}/build

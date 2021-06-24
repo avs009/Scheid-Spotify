@@ -22,19 +22,26 @@ SpotifyWrapper::SpotifyWrapper(QObject *parent) : QObject(parent), lastFToken("t
     // Handle status changed from Oauth2
     connect(&this->oauth2, &QOAuth2AuthorizationCodeFlow::statusChanged, this, [=](QAbstractOAuth::Status status) {
         switch (status) {
-            case QAbstractOAuth::Status::NotAuthenticated:
-                emit statusChanged(NotAuthenticated);
-                break;
-            case QAbstractOAuth::Status::TemporaryCredentialsReceived:
-                emit authenticated();
-                emit statusChanged(Authenticated);
-                break;
-            case QAbstractOAuth::Status::Granted:
-                if(isPermanent())
-                   saveToken(); // Automatic save current token after sucessfull authentication with granted
-            case QAbstractOAuth::Status::RefreshingToken:
-                emit statusChanged(Authenticating);
-                break;
+        case QAbstractOAuth::Status::NotAuthenticated: {
+            emit statusChanged(NotAuthenticated);
+            break;
+        }
+        case QAbstractOAuth::Status::TemporaryCredentialsReceived: {
+            emit authenticated();
+            emit statusChanged(Authenticated);
+            break;
+        }
+        case QAbstractOAuth::Status::Granted: {
+            if(isPermanent())
+               saveToken(); // Automatic save current token after sucessfull authentication with granted
+            emit authenticated();
+            emit statusChanged(Authenticated);
+            break;
+        }
+        case QAbstractOAuth::Status::RefreshingToken: {
+            emit statusChanged(Authenticating);
+            break;
+        }
         }
     });
 
@@ -81,22 +88,23 @@ void SpotifyWrapper::grant()
 
 QNetworkReply * SpotifyWrapper::getUserInfo()
 {
+    qDebug() << "Get status: "<< (int)this->oauth2.status();
     return this->oauth2.get(QUrl("https://api.spotify.com/v1/me"));
 }
 
-bool SpotifyWrapper::loadTokenAndAuthenticate() {
+void SpotifyWrapper::loadTokenAndAuthenticate(QString refreshToken) {
+    this->oauth2.setRefreshToken(refreshToken);
+    lastFToken.close();
+    this->oauth2.refreshAccessToken();
+    qDebug() << "New status: "<< (int)this->oauth2.status();
+}
+
+void SpotifyWrapper::loadTokenAndAuthenticate() {
     if(lastFToken.exists() && lastFToken.size() > 0 && lastFToken.open(QIODevice::ReadOnly)) {
-        QString refreshToken;
         this->permanent = true;
         QByteArray lastToken = lastFToken.readAll();
-        refreshToken = QString::fromStdString(lastToken.toStdString());
-        this->oauth2.setRefreshToken(refreshToken);
-        lastFToken.close();
-        this->oauth2.refreshAccessToken();
-        qDebug() << "New status: "<< (int)this->oauth2.status();
-        return true;
+        this->loadTokenAndAuthenticate(QString::fromStdString(lastToken.toStdString()));
     }
-    return false;
 }
 
 void SpotifyWrapper::saveToken() {
