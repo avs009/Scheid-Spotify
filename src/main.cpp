@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-    QLoggingCategory::setFilterRules("qt.networkauth.*=true");
+    QLoggingCategory::setFilterRules("qt.netowrk.*=true\nqt.networkauth.*=true");
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

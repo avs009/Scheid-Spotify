@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QTest>
-#include <QThread>
 
 #include "src/spotifywrapper.h"
 

@@ -32,25 +32,22 @@ SpotifyWrapper::SpotifyWrapper(QObject *parent) : QObject(parent), TokenFile("to
 
     // Tratamento de mudança de estado da autenticação e envio de sinalização para a aplicação
     connect(&this->oauth2, &QOAuth2AuthorizationCodeFlow::statusChanged, this, [=](QAbstractOAuth::Status status) {
-        switch (status) {
-        case QAbstractOAuth::Status::NotAuthenticated: {
+        switch (status)
+        {
+        case QAbstractOAuth::Status::NotAuthenticated:
             emit statusChanged(NotAuthenticated);
-            break;
-        }
+            break;       
         case QAbstractOAuth::Status::Granted:
             // Se o acesso permanete está ativo, salva automaticamente o token obito após o login
             if(isPermanent())
                saveToken();
             emit authenticated();
         case QAbstractOAuth::Status::TemporaryCredentialsReceived:
-
             emit statusChanged(Authenticated);
             break;
-
-        case QAbstractOAuth::Status::RefreshingToken: {
+        case QAbstractOAuth::Status::RefreshingToken:
             emit statusChanged(Authenticating);
-            break;
-        }
+            break;        
         }
     });
 
@@ -92,7 +89,8 @@ void SpotifyWrapper::setPermanent(bool value)
 
 void SpotifyWrapper::grant()
 {
-    if(this->oauth2.status() == QAbstractOAuth::Status::NotAuthenticated) {
+    if(this->oauth2.status() == QAbstractOAuth::Status::NotAuthenticated)
+    {
         // Se há um token salvo, tente logar por ele se já não foi carregado
         if(this->permanent && this->oauth2.refreshToken().isEmpty()) {
             // Se não carregar o token, autentique normalmente
@@ -108,6 +106,18 @@ void SpotifyWrapper::grant()
 QNetworkReply * SpotifyWrapper::getUserInfo()
 {
     return this->oauth2.get(QUrl("https://api.spotify.com/v1/me"));
+}
+
+QNetworkReply * SpotifyWrapper::searchForAnItem(QString query, int offset, int limit) {
+    QVariantMap paramters;
+    paramters.insert("q", QUrl::toPercentEncoding(query));
+    if(offset > 0)
+        paramters.insert("offset", offset);
+    if(limit > 1 && limit < 51)
+        paramters.insert("limit", limit);
+    paramters.insert("type", "track");
+
+    return this->oauth2.get(QUrl("https://api.spotify.com/v1/search"), paramters);
 }
 
 void SpotifyWrapper::loadTokenAndAuthenticate(QString refreshToken) {
