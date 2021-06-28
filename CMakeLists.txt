@@ -46,10 +46,15 @@ if( OpenSSL_FOUND )
 endif()
 
 file(GLOB_RECURSE PROJECT_TESTS
-    "test/*.h"
-    "test/*.hpp"
-    "test/*.cpp"
+    "src/*.h"
+    "src/*.hpp"
+    "src/*.cpp"
+    "src/*.ui"
 )
+
+# Exclude the main files from test
+list(FILTER PROJECT_TESTS EXCLUDE REGEX ".*/main.cpp$")
+list(FILTER PROJECT_TESTS EXCLUDE REGEX ".*/main.h$")
 
 file(GLOB_RECURSE PROJECT_SOURCES
     "src/*.h"
@@ -63,13 +68,23 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
-    qt_add_executable(ScheidSpotifyTest
+#    qt_add_executable(ScheidSpotifyMainTest
+#        MANUAL_FINALIZATION
+#        ${PROJECT_TESTS}
+#        test/maintest.cpp
+#    )
+    qt_add_executable(ScheidSpotifyWrapperTest
         MANUAL_FINALIZATION
         ${PROJECT_TESTS}
-        src/spotifywrapper.h
-        src/spotifywrapper.cpp
+        test/spotifywrappertest.cpp
+        test/spotifywrappertest.h
     )
-
+    qt_add_executable(ScheidSpotifySearchTest
+        MANUAL_FINALIZATION
+        ${PROJECT_TESTS}
+        test/searchcontrollertest.cpp
+        test/searchcontrollertest.h
+    )
 else()
     if(ANDROID)
         add_library(ScheidSpotify SHARED
@@ -79,17 +94,28 @@ else()
         add_executable(ScheidSpotify
             ${PROJECT_SOURCES}
         )
-        add_executable(ScheidSpotifyTest
+#        add_executable(ScheidSpotifyMainTest
+#            ${PROJECT_TESTS}
+#            test/maintest.cpp
+#        )
+        add_executable(ScheidSpotifyWrapperTest
             ${PROJECT_TESTS}
-            src/spotifywrapper.h
-            src/spotifywrapper.cpp
+            test/spotifywrappertest.cpp
+            test/spotifywrappertest.h
+        )
+        add_executable(ScheidSpotifySearchTest
+            ${PROJECT_TESTS}
+            test/searchcontrollertest.cpp
+            test/searchcontrollertest.h
         )
     endif()
 endif()
 
 target_link_libraries(ScheidSpotify PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth ${OPENSSL_LIBRARIES})
 
-target_link_libraries(ScheidSpotifyTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
+#target_link_libraries(ScheidSpotifyMainTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
+target_link_libraries(ScheidSpotifyWrapperTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
+target_link_libraries(ScheidSpotifySearchTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
 
 set_target_properties(ScheidSpotify PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -99,7 +125,11 @@ set_target_properties(ScheidSpotify PROPERTIES
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(ScheidSpotify)
-    qt_finalize_executable(ScheidSpotifyTest)
+    #qt_finalize_executable(ScheidSpotifyMainTest)
+    qt_finalize_executable(ScheidSpotifyWrapperTest)
+    qt_finalize_executable(ScheidSpotifySearchTest)
 endif()
 
-add_test(ScheidSpotifyTest ${PROJECT_TESTS})
+#add_test(NAME MainTest COMMAND ScheidSpotifyMainTest)
+add_test(NAME WrapperTest COMMAND ScheidSpotifyWrapperTest)
+add_test(NAME SearchTest COMMAND ScheidSpotifySearchTest)

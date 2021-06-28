@@ -82,6 +82,15 @@ public:
     QNetworkReply * getUserInfo();
 
     /*!
+     * \brief searchForAnItem Requisição para realizar um GET na api do spotify buscando algum album, artista ou música.
+     * \param query Query já formatada da requisição de acordo com a api do spotify
+     * \param offset Deslocamento caso a busca seja paginada
+     * \param limit Limite de valores por página
+     * \return Resposta da requisição realizada.
+     */
+    QNetworkReply * searchForAnItem(QString query, int offset=0, int limit=20);
+
+    /*!
      * \brief permanentChanged Método para tratamento ao ser habilitado/desabilitado o login permanente.
      * \param oldValue Valor anterior do estado
      */

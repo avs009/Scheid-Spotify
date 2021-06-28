@@ -42,5 +42,5 @@ void SpotifyWrapperTest::testLoadSavedToken() {
     QVERIFY2(spy.isValid() && spy.wait(), "Fail on grant from saved token!");
 }
 
-QTEST_MAIN(SpotifyWrapperTest)
+QTEST_MAIN(SpotifyWrapperTest);
 #include "spotifywrappertest.moc"
