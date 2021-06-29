@@ -5,11 +5,6 @@
 
 #include "../exceptions/exception.h"
 
-PagingController::PagingController(QObject *parent) : QObject(parent)
-{
-
-}
-
 PagingForTrack PagingController::convertPagingTracksFromJSON(const QJsonValue& pagingInJson, std::function<Track (const QJsonValue&)> itemParser)
 {
     if(!pagingInJson.isObject())
