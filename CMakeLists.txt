@@ -85,6 +85,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         test/searchcontrollertest.cpp
         test/searchcontrollertest.h
     )
+    qt_add_executable(ScheidSpotifyPlayListTest
+        MANUAL_FINALIZATION
+        ${PROJECT_TESTS}
+        test/playlistcontrollertest.h
+        test/playlistcontrollertest.cpp
+    )
 else()
     if(ANDROID)
         add_library(ScheidSpotify SHARED
@@ -108,6 +114,11 @@ else()
             test/searchcontrollertest.cpp
             test/searchcontrollertest.h
         )
+        add_executable(ScheidSpotifyPlayListTest
+            ${PROJECT_TESTS}
+            test/playlistcontrollertest.h
+            test/playlistcontrollertest.cpp
+        )
     endif()
 endif()
 
@@ -116,6 +127,7 @@ target_link_libraries(ScheidSpotify PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${Q
 #target_link_libraries(ScheidSpotifyMainTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
 target_link_libraries(ScheidSpotifyWrapperTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
 target_link_libraries(ScheidSpotifySearchTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
+target_link_libraries(ScheidSpotifyPlayListTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
 
 set_target_properties(ScheidSpotify PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -128,8 +140,10 @@ if(QT_VERSION_MAJOR EQUAL 6)
     #qt_finalize_executable(ScheidSpotifyMainTest)
     qt_finalize_executable(ScheidSpotifyWrapperTest)
     qt_finalize_executable(ScheidSpotifySearchTest)
+    qt_finalize_executable(ScheidSpotifyPlayListTest)
 endif()
 
 #add_test(NAME MainTest COMMAND ScheidSpotifyMainTest)
 add_test(NAME WrapperTest COMMAND ScheidSpotifyWrapperTest)
 add_test(NAME SearchTest COMMAND ScheidSpotifySearchTest)
+add_test(NAME PlayListTest COMMAND ScheidSpotifyPlayListTest)
