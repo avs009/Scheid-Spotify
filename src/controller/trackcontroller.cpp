@@ -35,6 +35,17 @@ Track TrackController::convertTrackFromJSON(const QJsonValue& trackInJson)
     return track;
 }
 
+QJsonValue TrackController::convertTrackToJSON(const Track & track)
+{
+    QJsonObject trackInJson;
+    trackInJson["href"] = track.getHref();
+    trackInJson["id"] = track.getId();
+    trackInJson["name"] = track.getName();
+    trackInJson["preview_url"] = track.getPreview_url();
+    trackInJson["uri"] = track.getUri();
+    return trackInJson;
+}
+
 void TrackController::loadTracksFinished()
 {
     this->loadTracksReply->deleteLater();
