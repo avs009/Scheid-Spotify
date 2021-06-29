@@ -52,6 +52,18 @@ public:
      */
     void addTrack(const Track &newTrack);
 
+    /*!
+     * \brief getFile Retorna o caminho do arquivo da playlist se a mesma já foi salva
+     * \return
+     */
+    const QString &getFile() const;
+
+    /*!
+     * \brief setFile Ajusta o caminho do arquivo para salvar a playlist
+     * \param newFile
+     */
+    void setFile(const QString &newFile);
+
 private:
     /*!
      * \brief name Nome da lista de músicas
