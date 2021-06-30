@@ -32,6 +32,13 @@ public:
      */
     static Track convertTrackFromJSON(const QJsonValue& trackInJson);
 
+    /*!
+     * \brief convertTrackFromJSON Método para converter um objeto da classe de faixa de música em JSON.
+     * \param trackInJson
+     * \return
+     */
+    static QJsonValue convertTrackToJSON(const Track & track);
+
 signals:
     /*!
      * \brief searchEnd Evento ao receber a resposta de uma busca efetuada previamente pelo método search.

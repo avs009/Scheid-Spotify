@@ -33,3 +33,13 @@ void PlayList::addTrack(const Track &newTrack)
 {
     tracks.push_back(newTrack);
 }
+
+const QString &PlayList::getFile() const
+{
+    return file;
+}
+
+void PlayList::setFile(const QString &newFile)
+{
+    file = newFile;
+}
