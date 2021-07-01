@@ -428,21 +428,19 @@ void MainWindow::on_btnLoadPlayList_clicked()
         {
             auto playlist = PlayListController::loadPlayList(file);
 
-            ui->txtPlayListName->setText(playlist.getName());
+            ui->txtPlayListName->setText(playlist.getName());      
 
-            auto tracks = playlist.getTracks();
-
+            // Limpa a playlist
             ui->tablePlayList->setDisabled(true);
             ui->tablePlayList->clearContents();
             ui->tablePlayList->setRowCount(0);
+            m_playlist->clear();
+
+            this->playlist = playlist;
+            const QVector<Track> & tracks = playlist.getTracks();
 
             if(tracks.size() > 0)
             {
-
-                m_playlist->clear();
-
-                this->playlist = playlist;
-
                 foreach(auto track, tracks) {
                     auto preview = QUrl(track.getPreview_url());
                     if(preview.isValid())
@@ -577,7 +575,7 @@ void MainWindow::on_btnSave_clicked()
 void MainWindow::on_btnDelete_clicked()
 {
     auto items = ui->tablePlayList->selectedRanges();
-    auto tracks = playlist.getTracks();
+    const QVector<Track> & tracks = playlist.getTracks();
 
     if(items.size() > 0)
         ui->tablePlayList->setDisabled(true);
@@ -587,9 +585,11 @@ void MainWindow::on_btnDelete_clicked()
         auto it=items[i];
         for(auto j=it.bottomRow(); j >= it.topRow(); j--)
         {
-            tracks.removeAt(j);
-            ui->tablePlayList->removeRow(j);
-            m_playlist->removeMedia(j);
+            if(playlist.removeTrack(tracks[j].getId()))
+            {
+                ui->tablePlayList->removeRow(j);
+                m_playlist->removeMedia(j);
+            }
         }
     }
 
