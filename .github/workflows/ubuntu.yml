@@ -27,7 +27,7 @@ jobs:
       run: cmake -E make_directory ${{runner.workspace}}/build
 
     - name: Install Dependencies
-      run: sudo apt update && sudo apt install build-essential qt5-default libqt5svg5-dev libqt5network5 libqt5networkauth5-dev qtbase5-dev -y
+      run: sudo apt update && sudo apt install build-essential qt5-default libqt5svg5-dev libqt5network5 libqt5networkauth5-dev libqt5multimedia5 libqt5multimediawidgets5 qtmultimedia5-dev qtbase5-dev -y
 
     - name: Configure CMake
       # Use a bash shell so we can use the same syntax for environment variable
