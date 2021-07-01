@@ -4,8 +4,8 @@ on: [push, pull_request]
 
 env:
   BUILD_TYPE: Release
-  SPOTIFY_CLIENT_KEY: ${{ secrets.SPOTIFY_CLIENT_KEY }}
-  SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+  SPOTIFY_CLIENT_KEY: "${{ secrets.SPOTIFY_CLIENT_KEY }}"
+  SPOTIFY_CLIENT_SECRET: "${{ secrets.SPOTIFY_CLIENT_SECRET }}"
 jobs:
   build:
     runs-on: windows-latest
