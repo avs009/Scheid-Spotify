@@ -31,8 +31,8 @@ jobs:
             
       - name: Config Env
         run: |
-          set "SPOTIFY_CLIENT_KEY=${{ secrets.SPOTIFY_CLIENT_KEY }}"
-          set "SPOTIFY_CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }}"
+          setx SPOTIFY_CLIENT_KEY=${{ secrets.SPOTIFY_CLIENT_KEY }}
+          setx SPOTIFY_CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }}
             
       - name: Configure CMake
         run: cmake . -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DUSE_QT5=ON -DUSE_TESTS=OFF
