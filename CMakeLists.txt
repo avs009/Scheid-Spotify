@@ -35,8 +35,8 @@ configure_file(
 #    endif()
 #endif()
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Network NetworkAuth  Test REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Network NetworkAuth  Test REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Network NetworkAuth Multimedia MultimediaWidgets Test REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Network NetworkAuth Multimedia MultimediaWidgets Test REQUIRED)
 
 find_package(OpenSSL REQUIRED)
 if( OpenSSL_FOUND )
@@ -122,12 +122,12 @@ else()
     endif()
 endif()
 
-target_link_libraries(ScheidSpotify PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth ${OPENSSL_LIBRARIES})
+target_link_libraries(ScheidSpotify PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets ${OPENSSL_LIBRARIES})
 
-#target_link_libraries(ScheidSpotifyMainTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
-target_link_libraries(ScheidSpotifyWrapperTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
-target_link_libraries(ScheidSpotifySearchTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
-target_link_libraries(ScheidSpotifyPlayListTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
+#target_link_libraries(ScheidSpotifyMainTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
+target_link_libraries(ScheidSpotifyWrapperTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
+target_link_libraries(ScheidSpotifySearchTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
+target_link_libraries(ScheidSpotifyPlayListTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::NetworkAuth Qt${QT_VERSION_MAJOR}::Multimedia Qt${QT_VERSION_MAJOR}::MultimediaWidgets Qt${QT_VERSION_MAJOR}::Test ${OPENSSL_LIBRARIES})
 
 set_target_properties(ScheidSpotify PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

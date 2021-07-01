@@ -43,11 +43,14 @@ jobs:
       #    ./copydlldeps.sh --infile ./ScheidSpotifyTest.exe \
       #      --destdir ./test/ \
       #      --recursivesrcdir /mingw64/bin/ \
+      #      --enforcedir /mingw64/share/qt5/plugins/audio/ \
       #      --enforcedir /mingw64/share/qt5/plugins/generic/ \
       #      --enforcedir /mingw64/share/qt5/plugins/iconengines/ \
       #      --enforcedir /mingw64/share/qt5/plugins/imageformats/ \
       #      --enforcedir /mingw64/share/qt5/plugins/platforms/ \
       #      --enforcedir /mingw64/share/qt5/plugins/styles/ \
+      #      --enforcedir /mingw64/share/qt5/plugins/mediaservice/ \
+      #      --enforcedir /mingw64/share/qt5/plugins/playlistformats/ \
       #      --enforcedir /mingw64/bin/libcrypto-1_1-x64.dll \
       #      --enforcedir /mingw64/bin/libjpeg-8.dll \
       #      --enforcedir /mingw64/bin/libssl-1_1-x64.dll \
@@ -61,11 +64,14 @@ jobs:
           ./copydlldeps.sh --infile ./ScheidSpotify.exe \
             --destdir ./scheid-spotify/ \
             --recursivesrcdir /mingw64/bin/ \
+            --enforcedir /mingw64/share/qt5/plugins/audio/ \
             --enforcedir /mingw64/share/qt5/plugins/generic/ \
             --enforcedir /mingw64/share/qt5/plugins/iconengines/ \
             --enforcedir /mingw64/share/qt5/plugins/imageformats/ \
             --enforcedir /mingw64/share/qt5/plugins/platforms/ \
             --enforcedir /mingw64/share/qt5/plugins/styles/ \
+            --enforcedir /mingw64/share/qt5/plugins/mediaservice/ \
+            --enforcedir /mingw64/share/qt5/plugins/playlistformats/ \
             --enforcedir /mingw64/bin/libcrypto-1_1-x64.dll \
             --enforcedir /mingw64/bin/libjpeg-8.dll \
             --enforcedir /mingw64/bin/libssl-1_1-x64.dll \
