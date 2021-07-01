@@ -15,7 +15,17 @@ class PlayListControllerTest : public QObject
 public:
     explicit PlayListControllerTest(QObject *parent = nullptr);
 
-private slots:
+private slots:    
+    /*!
+     * \brief testEditPlaylistTrack
+     */
+    void testEditPlaylistTrack();
+
+    /*!
+     * \brief testRemoveTrack Testa remover uma faixa de música da lista.
+     */
+    void testRemoveTrack();
+
     /*!
      * \brief testSavePlayList Testa se o salvamento de uma lista de música e suas músicas está funcionando.
      */
