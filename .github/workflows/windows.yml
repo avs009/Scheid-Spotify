@@ -29,6 +29,11 @@ jobs:
             mingw-w64-x86_64-qt5
             mingw-w64-x86_64-openssl
             
+      - name: Config Env
+        run: |
+          setx SPOTIFY_CLIENT_KEY=${{ secrets.SPOTIFY_CLIENT_KEY }}
+          setx SPOTIFY_CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }}
+            
       - name: Configure CMake
         run: cmake . -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DUSE_QT5=ON -DUSE_TESTS=OFF
 
