@@ -74,6 +74,48 @@ void PlayListControllerTest::testLoadPlayListJSONError()
     QVERIFY_EXCEPTION_THROWN(PlayListController::loadPlayList(testFile), Exception);
 }
 
+void PlayListControllerTest::testRemoveTrack()
+{
+    PlayList playlist;
+    playlist.setName(TEST_PLAYLIST_NAME);
+    playlist.setFile(TEST_PLAYLIST_FILE);
+
+    Track track;
+    track.setHref("https://api.spotify.com/v1/tracks/2plRom0urixt6BE8t7kOhQ");
+    track.setId("2plRom0urixt6BE8t7kOhQ");
+    track.setName(TEST_PLAYLIST_TRACK_NAME);
+    track.setPreview_url("https://p.scdn.co/mp3-preview/3ec977426d0c9458c79cc54774a2460f9923bced?cid=774b29d4f13844c495f206cafdad9c86");
+    track.setUri("spotify:track:2plRom0urixt6BE8t7kOhQ");
+
+    const QVector<Track> & tracks = playlist.getTracks();
+
+    playlist.addTrack(track);
+
+    QVERIFY2(playlist.removeTrack(track.getId()) && playlist.getTracks().size()==0 , "Falha ao remover uma faixa de música da playlist");
+
+    QVERIFY2(tracks.size() == 0, "Falha ao remover uma faixa de música da playlist da referência");
+}
+
+void PlayListControllerTest::testEditPlaylistTrack()
+{
+    PlayList playlist;
+    playlist.setName(TEST_PLAYLIST_NAME);
+    playlist.setFile(TEST_PLAYLIST_FILE);
+
+    Track track;
+    track.setHref("https://api.spotify.com/v1/tracks/2plRom0urixt6BE8t7kOhQ");
+    track.setId("2plRom0urixt6BE8t7kOhQ");
+    track.setName(TEST_PLAYLIST_TRACK_NAME);
+    track.setPreview_url("https://p.scdn.co/mp3-preview/3ec977426d0c9458c79cc54774a2460f9923bced?cid=774b29d4f13844c495f206cafdad9c86");
+    track.setUri("spotify:track:2plRom0urixt6BE8t7kOhQ");
+
+    const QVector<Track> & tracks = playlist.getTracks();
+
+    playlist.addTrack(track);
+
+    QVERIFY2(tracks.size() == 1, "Falha ao verificar faixa adicionada na referencia de uma playlist");
+}
+
 void PlayListControllerTest::cleanup()
 {
     QFile testFile(TEST_PLAYLIST_FILE);

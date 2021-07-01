@@ -44,13 +44,20 @@ public:
      * \brief getTracks Retorna um vetor com as músicas desta playlist
      * \return
      */
-    const QVector<Track> &getTracks() const;
+    const QVector<Track> & getTracks() const;
 
     /*!
      * \brief addTrack Adiciona uma nova faixa de música a esta playlist
      * \param newTrack Nova faixa de música
      */
     void addTrack(const Track &newTrack);
+
+    /*!
+     * \brief removeTrack Remove uma faixa de música cujo identificador seja identico ao parametro.
+     * \param trackID Identificador da faixa de música a ser removida da playlist
+     * \return true Para faixa removida com sucesso, false caso a faixa não seja encontrada
+     */
+    bool removeTrack(const QString &trackID);
 
     /*!
      * \brief getFile Retorna o caminho do arquivo da playlist se a mesma já foi salva
